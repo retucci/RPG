@@ -1,0 +1,51 @@
+.mat-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .mat-full-width {
+    width: 100%;
+  }
+  
+  td {
+    padding-right: 8px;
+  }
+
+  section {
+    display: table;
+    margin: 8px;
+  }
+  
+  .mat-label {
+    display: table-cell;
+    font-size: 14px;
+    margin-left: 8px;
+    width: 120px;
+  }
+  
+  .mat-button-row {
+    display: table-cell;
+  }
+  
+  .mat-button-row button {
+    display: table-cell;
+    margin-right: 8px;
+  }
+  
+  .mat-flex-container {
+    display: flex;
+    justify-content: space-between;
+    width: 480px;
+  }
+  
+  .mat-button-container {
+    display: flex;
+    justify-content: center;
+    width: 120px;
+  }
+
+  .img-upload {
+    cursor: pointer;
+    border-radius: 3px 3px 0 0;
+  }
