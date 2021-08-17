@@ -1,13 +1,15 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 import { environment } from 'src/environments/environment';
 
 import { Character } from 'src/app/_models/Character';
 import { CharacterService } from 'src/app/_services/character.service';
-
-import { ToastrService } from 'ngx-toastr';
+import { TypeEnum, TypeEnumLabel } from 'src/app/_enums/TypeEnum.enum';
+import { GenderEnum, GenderEnumLabel } from 'src/app/_enums/GenderEnum.enum';
+import { CategoryEnum, CategoryEnumLabel } from 'src/app/_enums/CategoryEnum.enum';
 
 @Component({
   selector: 'app-characterEdit',
@@ -16,8 +18,18 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CharacterEditComponent implements OnInit {
 
-  character: Character;
   registerForm: FormGroup;
+  character: Character;
+
+  public typeEnumLabel = TypeEnumLabel;
+  public types = Object.values(TypeEnum).filter(value => typeof value === 'number');
+
+  public genderEnumLabel = GenderEnumLabel;
+  public genders = Object.values(GenderEnum);
+
+  public categoryEnumLabel = CategoryEnumLabel;
+  public categories = Object.values(CategoryEnum);
+  
   id = 0;
   code: string;
 
@@ -48,44 +60,56 @@ export class CharacterEditComponent implements OnInit {
   validation() {
     this.registerForm = this.formBuilder.group({
       id: [0],
-      name: ['', [Validators.required, Validators.maxLength(255)]],
+      name: ['', [Validators.required, Validators.maxLength(100)]],
+      nickName: ['', [Validators.required, Validators.maxLength(100)]],
+      gender: ['', Validators.required],
+      mainType: ['', Validators.required],
+      secondaryType: [''],
       image: [''],
       level: ['', [Validators.required, Validators.min(0), Validators.max(999)]],
       experiencePoints: ['', [Validators.required, Validators.min(0), Validators.max(999)]],
+      totalExperiencePoints: ['', [Validators.required, Validators.min(0), Validators.max(999)]],
       hitPoints: ['', [Validators.required, Validators.min(0), Validators.max(999)]],
+      totalHitPoints: ['', [Validators.required, Validators.min(0), Validators.max(999)]],
       attack: ['', [Validators.required, Validators.min(0), Validators.max(999)]],
       defense: ['', [Validators.required, Validators.min(0), Validators.max(999)]],
       specialAttack: ['', [Validators.required, Validators.min(0), Validators.max(999)]],
       specialDefense: ['', [Validators.required, Validators.min(0), Validators.max(999)]],
       speed: ['', [Validators.required, Validators.min(0), Validators.max(999)]],
-      moves: this.formBuilder.array([]),
-      weapons: this.formBuilder.array([])
+      moves: this.formBuilder.array([])
+      // weapons: this.formBuilder.array([])
     });
   }
 
-  addWeapon() {
-    this.weapons.push(this.createWeapon({ id: 0, code: '', original: 1 }));
-  }
+  // addWeapon() {
+  //   this.weapons.push(this.createWeapon({ id: 0, code: '', original: 1 }));
+  // }
 
-  createWeapon(weapon: any): FormGroup {
-    return this.formBuilder.group({
-        id: [weapon.id],
-        type: [0,[Validators.required]],
-        damage: ['', [Validators.required, Validators.min(0), Validators.max(999)]],
-        durability: ['', [Validators.required, Validators.min(0), Validators.max(999)]]
-     });
-  }
+  // createWeapon(weapon: any): FormGroup {
+  //   return this.formBuilder.group({
+  //       id: [weapon.id],
+  //       damage: ['', [Validators.required, Validators.min(0), Validators.max(999)]],
+  //       durability: ['', [Validators.required, Validators.min(0), Validators.max(999)]]
+  //    });
+  // }
 
   addMove() {
-    this.moves.push(this.createMove({ id: 0, type: 0, damage: 0, usage: 0 }));
+    this.moves.push(this.createMove({ id: 0, name:'',type:'', category:'',accurace:'',damage: '', usage: '' }));
+  }
+
+  removeMove(index : number) {
+    this.moves.removeAt(index);
   }
 
   createMove(move: any): FormGroup {
     return this.formBuilder.group({
         id: [move.id],
-        type: [0,[Validators.required]],
-        damage: ['', [Validators.required, Validators.min(0), Validators.max(999)]],
-        usage: ['', [Validators.required, Validators.min(0), Validators.max(999)]]
+        name: [move.name, [Validators.required, Validators.maxLength(100)]],
+        type: [move.type,[Validators.required]],
+        category: [move.category,[Validators.required]],
+        accurace: [move.accurace,[Validators.required]],
+        damage: [move.damage, [Validators.required, Validators.min(0), Validators.max(999)]],
+        usage: [move.usage, [Validators.required, Validators.min(0), Validators.max(999)]]
      });
   }
 
@@ -109,6 +133,7 @@ export class CharacterEditComponent implements OnInit {
           if (character != null) {
             this.character = Object.assign({}, character);
             this.registerForm.patchValue(character);
+            this.character.moves.forEach(move =>{ this.moves.push(this.createMove(move)); })
             if (this.character.image !== '') {
               this.imageURL = environment.apiURL + 'Images/' + this.character.image;
             }
@@ -151,7 +176,7 @@ export class CharacterEditComponent implements OnInit {
   onFileChange(ev: any) {
     const reader = new FileReader();
     reader.onload = (event: any) => this.imageURL = event.target.result;
-    this.file = ev.target.files;
+    this.file = ev.target.files[0];
     reader.readAsDataURL(this.file);
     this.uploadImage();
   }

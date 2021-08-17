@@ -3,11 +3,12 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 
 import { environment } from 'src/environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 import { Character } from '../_models/Character';
 import { CharacterService } from '../_services/character.service';
+import { TypeEnum, TypeEnumLabel } from 'src/app/_enums/TypeEnum.enum';
 
-import { ToastrService } from 'ngx-toastr';
 
 export interface DialogData {
   character: Character;
@@ -27,6 +28,9 @@ export class CharacterComponent implements OnInit, AfterViewInit {
   pageSize = 4;
   pageSizeOptions: number[] = [3, 4, 5];
   pageEvent: PageEvent;
+
+  public typeEnumLabel = TypeEnumLabel;
+  public types = Object.values(TypeEnum);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -58,7 +62,11 @@ export class CharacterComponent implements OnInit, AfterViewInit {
   }
 
   getImage(imageURL: string) {
-    return imageURL !== '' ? `${environment.apiURL}Images/${imageURL}` : `${environment.apiURL}Images/character_and_morty.png`;
+    return imageURL !== '' ? `${environment.apiURL}Images/${imageURL}` : `${environment.apiURL}Images/who_is_that_pokemon.jpg`;
+  }
+
+  getTypeImage(type: number) {
+    return type !== null ? `assets/img/${this.typeEnumLabel[type].toLowerCase()}.gif` : '';
   }
 
   openDialog(id: number) {

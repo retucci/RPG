@@ -7,8 +7,8 @@ const routes: Routes = [
   {path: 'characters', component: CharacterComponent},
   {path: 'character/:id/edit',component: CharacterEditComponent},
   {path: 'character',component: CharacterEditComponent},
-  {path: '', redirectTo: 'character', pathMatch: 'full'},
-  {path: '**', redirectTo: 'character', pathMatch: 'full'}
+  {path: '', redirectTo: 'characters', pathMatch: 'full'},
+  {path: '**', redirectTo: 'characters', pathMatch: 'full'}
 ];
 
 @NgModule({

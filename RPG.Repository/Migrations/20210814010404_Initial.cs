@@ -2,7 +2,7 @@
 
 namespace RPG.Repository.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,13 +14,19 @@ namespace RPG.Repository.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Level = table.Column<int>(nullable: false),
                     ExperiencePoints = table.Column<int>(nullable: false),
+                    TotalExperiencePoints = table.Column<int>(nullable: false),
                     HitPoints = table.Column<int>(nullable: false),
+                    TotalHitPoints = table.Column<int>(nullable: false),
                     Attack = table.Column<int>(nullable: false),
                     Defense = table.Column<int>(nullable: false),
                     SpecialAttack = table.Column<int>(nullable: false),
                     SpecialDefense = table.Column<int>(nullable: false),
                     Speed = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(type: "varchar(100)", nullable: false),
+                    Nickname = table.Column<string>(type: "varchar(100)", nullable: false),
+                    Gender = table.Column<string>(type: "varchar(1)", nullable: false),
+                    MainType = table.Column<int>(nullable: false),
+                    SecondaryType = table.Column<int>(nullable: true),
                     Image = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -34,9 +40,12 @@ namespace RPG.Repository.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Type = table.Column<int>(nullable: false),
                     Damage = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(type: "varchar(100)", nullable: false),
+                    Type = table.Column<int>(nullable: false),
+                    Category = table.Column<string>(type: "varchar(1)", nullable: false),
                     Usage = table.Column<int>(nullable: false),
+                    Accurace = table.Column<int>(nullable: false),
                     CharacterId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -56,7 +65,6 @@ namespace RPG.Repository.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Type = table.Column<int>(nullable: false),
                     Damage = table.Column<int>(nullable: false),
                     Durability = table.Column<int>(nullable: false),
                     CharacterId = table.Column<int>(nullable: true)

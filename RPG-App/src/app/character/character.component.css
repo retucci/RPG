@@ -1,6 +1,17 @@
-.example-header-image {
-    background-image: url('http://localhost:5000/Images/rick.png');
+  .example-header-image {
+    background-image: url('http://localhost:5000/Images/pokeball.png');
     background-size: cover;
+  }
+
+  .imgCharacter {
+    width: 87px;
+    height: 120px;
+  }
+
+  .imgType {
+    width: 32px;
+    height: 12px;
+    margin: 5px 5px 5px 5px;
   }
 
   mat-grid-list {
@@ -10,7 +21,6 @@
   }
 
   mat-grid-tile {
-    /* background: rgb(236, 240, 241); */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -18,4 +28,16 @@
 
   .mat-button-add {
     margin: 10px 10px 10px 10px;
+  }
+
+  .float-right {
+    float: right !important;
+  }
+
+  .male {
+    color: mediumblue;
+  }
+
+  .female {
+    color: mediumvioletred;
   }

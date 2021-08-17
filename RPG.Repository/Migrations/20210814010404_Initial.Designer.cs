@@ -9,8 +9,8 @@ using RPG.Repository;
 namespace RPG.Repository.Migrations
 {
     [DbContext(typeof(RPGContext))]
-    [Migration("20210807011114_initial")]
-    partial class initial
+    [Migration("20210814010404_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,6 +33,10 @@ namespace RPG.Repository.Migrations
                     b.Property<int>("ExperiencePoints")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("varchar(1)");
+
                     b.Property<int>("HitPoints")
                         .HasColumnType("INTEGER");
 
@@ -42,8 +46,19 @@ namespace RPG.Repository.Migrations
                     b.Property<int>("Level")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("MainType")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Nickname")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<int?>("SecondaryType")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("SpecialAttack")
                         .HasColumnType("INTEGER");
@@ -52,6 +67,12 @@ namespace RPG.Repository.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Speed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TotalExperiencePoints")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TotalHitPoints")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -65,11 +86,22 @@ namespace RPG.Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("Accurace")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("varchar(1)");
+
                     b.Property<int?>("CharacterId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Damage")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
 
                     b.Property<int>("Type")
                         .HasColumnType("INTEGER");
@@ -97,9 +129,6 @@ namespace RPG.Repository.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Durability")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Type")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");

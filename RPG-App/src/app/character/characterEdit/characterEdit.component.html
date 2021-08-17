@@ -1,213 +1,406 @@
 <form class='mat-form' [formGroup]="registerForm">
-  <mat-tab-group animationDuration="100ms">
-    <mat-tab label="Rick">
-      <mat-card [hidden]="this.id == 0">
-        <mat-card-header fxLayoutAlign="center">
-          <mat-card-title>Clique na imagem para realizar o upload</mat-card-title>
-        </mat-card-header>
-        <mat-card-content fxLayoutAlign="center">
-          <input type="file" #file style="display:none" (change)="onFileChange($event)">
-          <img mat-card-md-image class="img-upload" [src]="this.imageURL" (click)="file.click()">
-        </mat-card-content>
-      </mat-card>
-      <table class="mat-full-width" cellspacing="0">
-        <tr>
-          <td>
+  <div class="col-md-12">
+    <mat-tab-group animationDuration="100ms">
+      <mat-tab label="Character">
+        <div class="row g-4">
+
+          <div class="col-md-4">
             <mat-form-field appearance="legacy" class="mat-full-width">
-              <mat-label>Nome</mat-label>
-              <input matInput placeholder="Insira o nome do Rick" formControlName="name">
+              <mat-label>Name</mat-label>
+              <input matInput placeholder="Enter the name of character" formControlName="name">
               <mat-error *ngIf="registerForm.get('name').hasError('required') && registerForm.get('name').touched">
-                O Nome é obrigatório
+                Name is required
               </mat-error>
               <mat-error *ngIf="registerForm.get('name').hasError('maxlength') && registerForm.get('name').touched">
-                O Nome não pode ter mais que 255 caracteres
+                Nome can't have more than 100 characters
               </mat-error>
             </mat-form-field>
-          </td>
-          <td>
+          </div>
+          <div class="col-md-4">
             <mat-form-field appearance="legacy" class="mat-full-width">
-              <mat-label>level</mat-label>
-              <input type="number" maxlength="4" min="1" max="999" matInput placeholder="Insira o level" formControlName="level">
+              <mat-label>Nickname</mat-label>
+              <input matInput placeholder="Enter the nickname of character" formControlName="nickName">
+              <mat-error
+                *ngIf="registerForm.get('nickName').hasError('required') && registerForm.get('nickName').touched">
+                Nickname is required
+              </mat-error>
+              <mat-error
+                *ngIf="registerForm.get('nickName').hasError('maxlength') && registerForm.get('nickName').touched">
+                Nickname can't have more than 100 characters
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="fill">
+              <mat-label>Gender</mat-label>
+              <mat-select formControlName="gender">
+                <mat-option *ngFor="let gender of genders" [value]="gender">{{genderEnumLabel[gender]}}</mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="registerForm.get('gender').hasError('required') && registerForm.get('gender').touched">
+                Gender is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field appearance="legacy" class="mat-full-width">
+              <mat-label>Level</mat-label>
+              <input type="number" maxlength="4" min="0" max="999" matInput placeholder="Enter the Level"
+                formControlName="level">
               <mat-error *ngIf="registerForm.get('level').hasError('required') && registerForm.get('level').touched">
-                O level é obrigatório
+                Level is required
               </mat-error>
-              <mat-error *ngIf="(registerForm.get('level').hasError('min') || registerForm.get('level').hasError('max')) && registerForm.get('level').touched">
-                O level deve ser entre 0 e 999
+              <mat-error
+                *ngIf="(registerForm.get('level').hasError('min') || registerForm.get('level').hasError('max')) && registerForm.get('level').touched">
+                Level must be between 0 and 999
               </mat-error>
             </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <td>
+          </div>
+          <div class="col-md-4">
             <mat-form-field appearance="legacy" class="mat-full-width">
-              <mat-label>hitPoints</mat-label>
-              <input type="number" maxlength="4" min="1" max="999" matInput placeholder="Insira o hitPoints" formControlName="hitPoints">
-              <mat-error *ngIf="registerForm.get('hitPoints').hasError('required') && registerForm.get('hitPoints').touched">
-                O hitPoints é obrigatório
+              <mat-label>XP</mat-label>
+              <input type="number" maxlength="4" min="0" max="999" matInput placeholder="Enter the Experience Points"
+                formControlName="experiencePoints">
+              <mat-error
+                *ngIf="registerForm.get('experiencePoints').hasError('required') && registerForm.get('experiencePoints').touched">
+                Experience Points is required
               </mat-error>
-              <mat-error *ngIf="(registerForm.get('hitPoints').hasError('min') || registerForm.get('hitPoints').hasError('max')) && registerForm.get('hitPoints').touched">
-                O hitPoints deve ser entre 0 e 999
+              <mat-error
+                *ngIf="(registerForm.get('experiencePoints').hasError('min') || registerForm.get('experiencePoints').hasError('max')) && registerForm.get('experiencePoints').touched">
+                Experience Points must be between 0 and 999
               </mat-error>
             </mat-form-field>
-          </td>
-          <td>
+          </div>
+          <div class="col-md-4">
             <mat-form-field appearance="legacy" class="mat-full-width">
-              <mat-label>experiencePoints</mat-label>
-              <input type="number" maxlength="4" min="1" max="999" matInput placeholder="Insira o experiencePoints" formControlName="experiencePoints">
-              <mat-error *ngIf="registerForm.get('experiencePoints').hasError('required') && registerForm.get('experiencePoints').touched">
-                O experiencePoints é obrigatório
+              <mat-label>Total XP</mat-label>
+              <input type="number" maxlength="4" min="0" max="999" matInput placeholder="Enter the Experience Points"
+                formControlName="totalExperiencePoints">
+              <mat-error
+                *ngIf="registerForm.get('totalExperiencePoints').hasError('required') && registerForm.get('totalExperiencePoints').touched">
+                Total Experience Points is required
               </mat-error>
-              <mat-error *ngIf="(registerForm.get('experiencePoints').hasError('min') || registerForm.get('experiencePoints').hasError('max')) && registerForm.get('experiencePoints').touched">
-                O experiencePoints deve ser entre 0 e 999
-              </mat-error>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <mat-form-field appearance="legacy" class="mat-full-width">
-              <mat-label>attack</mat-label>
-              <input type="number" maxlength="4" min="1" max="999" matInput placeholder="Insira o attack" formControlName="attack">
-              <mat-error *ngIf="registerForm.get('attack').hasError('required') && registerForm.get('attack').touched">
-                O attack é obrigatório
-              </mat-error>
-              <mat-error *ngIf="(registerForm.get('attack').hasError('min') || registerForm.get('attack').hasError('max')) && registerForm.get('attack').touched">
-                O attack deve ser entre 0 e 999
+              <mat-error
+                *ngIf="(registerForm.get('totalExperiencePoints').hasError('min') || registerForm.get('totalExperiencePoints').hasError('max')) && registerForm.get('experiencePoints').touched">
+                Total Experience Points must be between 0 and 999
               </mat-error>
             </mat-form-field>
-          </td>
-          <td>
-            <mat-form-field appearance="legacy" class="mat-full-width">
-              <mat-label>defense</mat-label>
-              <input type="number" maxlength="4" min="1" max="999" matInput placeholder="Insira o defense" formControlName="defense">
-              <mat-error *ngIf="registerForm.get('defense').hasError('required') && registerForm.get('defense').touched">
-                O defense é obrigatório
-              </mat-error>
-              <mat-error *ngIf="(registerForm.get('defense').hasError('min') || registerForm.get('defense').hasError('max')) && registerForm.get('defense').touched">
-                O defense deve ser entre 0 e 999
+          </div>
+
+          <div class="col-md-6">
+            <mat-card>
+              <mat-card-header fxLayoutAlign="center">
+                <mat-card-title>Click to upload</mat-card-title>
+              </mat-card-header>
+              <mat-card-content fxLayoutAlign="center">
+                <input type="file" #file style="display:none" (change)="onFileChange($event)">
+                <img mat-card-md-image class="img-upload" [src]="this.imageURL" (click)="file.click()">
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <div class="col-md-6">
+            <div class="row g-12">
+              <div class="col-md-6">
+                <mat-form-field appearance="legacy" class="mat-full-width">
+                  <mat-label>HP</mat-label>
+                  <input type="number" maxlength="4" min="0" max="999" matInput placeholder="Enter the Hit Points"
+                    formControlName="hitPoints">
+                  <mat-error
+                    *ngIf="registerForm.get('hitPoints').hasError('required') && registerForm.get('hitPoints').touched">
+                    Hit Points is required
+                  </mat-error>
+                  <mat-error
+                    *ngIf="(registerForm.get('hitPoints').hasError('min') || registerForm.get('hitPoints').hasError('max')) && registerForm.get('hitPoints').touched">
+                    Hit Points must be between 0 and 999
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field appearance="legacy" class="mat-full-width">
+                  <mat-label>Total HP</mat-label>
+                  <input type="number" maxlength="4" min="0" max="999" matInput placeholder="Enter the Hit Points"
+                    formControlName="totalHitPoints">
+                  <mat-error
+                    *ngIf="registerForm.get('totalHitPoints').hasError('required') && registerForm.get('totalHitPoints').touched">
+                    Total Hit Points is required
+                  </mat-error>
+                  <mat-error
+                    *ngIf="(registerForm.get('totalHitPoints').hasError('min') || registerForm.get('totalHitPoints').hasError('max')) && registerForm.get('hitPoints').touched">
+                    Total Hit Points must be between 0 and 999
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field appearance="legacy" class="mat-full-width">
+                  <mat-label>Attack</mat-label>
+                  <input type="number" maxlength="4" min="0" max="999" matInput placeholder="Enter the Attack"
+                    formControlName="attack">
+                  <mat-error
+                    *ngIf="registerForm.get('attack').hasError('required') && registerForm.get('attack').touched">
+                    Attack is required
+                  </mat-error>
+                  <mat-error
+                    *ngIf="(registerForm.get('attack').hasError('min') || registerForm.get('attack').hasError('max')) && registerForm.get('attack').touched">
+                    Attack must be between 0 and 999
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field appearance="legacy" class="mat-full-width">
+                  <mat-label>Defense</mat-label>
+                  <input type="number" maxlength="4" min="0" max="999" matInput placeholder="Enter the Defense"
+                    formControlName="defense">
+                  <mat-error
+                    *ngIf="registerForm.get('defense').hasError('required') && registerForm.get('defense').touched">
+                    Defense is required
+                  </mat-error>
+                  <mat-error
+                    *ngIf="(registerForm.get('defense').hasError('min') || registerForm.get('defense').hasError('max')) && registerForm.get('defense').touched">
+                    Defense must be between 0 and 999
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field appearance="legacy" class="mat-full-width">
+                  <mat-label>Special Attack</mat-label>
+                  <input type="number" maxlength="4" min="0" max="999" matInput placeholder="Enter the Special Attack"
+                    formControlName="specialAttack">
+                  <mat-error
+                    *ngIf="registerForm.get('specialAttack').hasError('required') && registerForm.get('specialAttack').touched">
+                    Special Attack is required
+                  </mat-error>
+                  <mat-error
+                    *ngIf="(registerForm.get('specialAttack').hasError('min') || registerForm.get('specialAttack').hasError('max')) && registerForm.get('specialAttack').touched">
+                    Special Attack must be between 0 and 999
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field appearance="legacy" class="mat-full-width">
+                  <mat-label>Special Defense</mat-label>
+                  <input type="number" maxlength="4" min="0" max="999" matInput placeholder="Enter the Special Defense"
+                    formControlName="specialDefense">
+                  <mat-error
+                    *ngIf="registerForm.get('specialDefense').hasError('required') && registerForm.get('specialDefense').touched">
+                    Special Defense is required
+                  </mat-error>
+                  <mat-error
+                    *ngIf="(registerForm.get('specialDefense').hasError('min') || registerForm.get('specialDefense').hasError('max')) && registerForm.get('specialDefense').touched">
+                    Special Defense must be between 0 and 999
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-12">
+                <mat-form-field appearance="legacy" class="mat-full-width">
+                  <mat-label>Speed</mat-label>
+                  <input type="number" maxlength="4" min="0" max="999" matInput placeholder="Enter the Speed"
+                    formControlName="speed">
+                  <mat-error
+                    *ngIf="registerForm.get('speed').hasError('required') && registerForm.get('speed').touched">
+                    Speed is required
+                  </mat-error>
+                  <mat-error
+                    *ngIf="(registerForm.get('speed').hasError('min') || registerForm.get('speed').hasError('max')) && registerForm.get('speed').touched">
+                    Speed must be between 0 and 999
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field appearance="fill">
+              <mat-label>Main Type</mat-label>
+              <mat-select formControlName="mainType">
+                <mat-option *ngFor="let type of types" [value]="type">{{typeEnumLabel[type]}}</mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="registerForm.get('mainType').hasError('required') && registerForm.get('mainType').touched">
+                Main Type is required
               </mat-error>
             </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <mat-form-field appearance="legacy" class="mat-full-width">
-              <mat-label>specialAttack</mat-label>
-              <input type="number" maxlength="4" min="1" max="999" matInput placeholder="Insira o specialAttack" formControlName="specialAttack">
-              <mat-error *ngIf="registerForm.get('specialAttack').hasError('required') && registerForm.get('specialAttack').touched">
-                O specialAttack é obrigatório
-              </mat-error>
-              <mat-error *ngIf="(registerForm.get('specialAttack').hasError('min') || registerForm.get('specialAttack').hasError('max')) && registerForm.get('specialAttack').touched">
-                O specialAttack deve ser entre 0 e 999
-              </mat-error>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field appearance="fill">
+              <mat-label>Secondary Type</mat-label>
+              <mat-select formControlName="secondaryType">
+                <mat-option *ngFor="let type of types" [value]="type">{{typeEnumLabel[type]}}</mat-option>
+              </mat-select>
             </mat-form-field>
-          </td>
-          <td>
-            <mat-form-field appearance="legacy" class="mat-full-width">
-              <mat-label>specialDefense</mat-label>
-              <input type="number" maxlength="4" min="1" max="999" matInput placeholder="Insira o specialDefense" formControlName="specialDefense">
-              <mat-error *ngIf="registerForm.get('specialDefense').hasError('required') && registerForm.get('specialDefense').touched">
-                O specialDefense é obrigatório
-              </mat-error>
-              <mat-error *ngIf="(registerForm.get('specialDefense').hasError('min') || registerForm.get('specialDefense').hasError('max')) && registerForm.get('specialDefense').touched">
-                O specialDefense deve ser entre 0 e 999
-              </mat-error>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <mat-form-field appearance="legacy" class="mat-full-width">
-              <mat-label>speed</mat-label>
-              <input type="number" maxlength="4" min="1" max="999" matInput placeholder="Insira o speed" formControlName="speed">
-              <mat-error *ngIf="registerForm.get('speed').hasError('required') && registerForm.get('speed').touched">
-                O speed é obrigatório
-              </mat-error>
-              <mat-error *ngIf="(registerForm.get('speed').hasError('min') || registerForm.get('speed').hasError('max')) && registerForm.get('speed').touched">
-                O speed deve ser entre 0 e 999
-              </mat-error>
-            </mat-form-field>
-          </td>
-        </tr>
-      </table>
-    </mat-tab>
-    <mat-tab label="Weapon">
-      <div formArrayName="weapons" *ngFor="let weapon of weapons.controls; let i = index">
-        <div [formGroupName]="i">
-          <mat-form-field appearance="legacy" class="mat-full-width">
-            <mat-label>Type</mat-label>
-            <input matInput placeholder="Insira o codigo da type" formControlName="type">
-            <mat-error *ngIf="weapons.get(i+'.type').hasError('required') && weapons.get(i+'.type').touched">
-              O Type é obrigatório
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="legacy" class="mat-full-width">
-            <mat-label>damage</mat-label>
-            <input type="number" maxlength="4" min="1" max="999" matInput placeholder="Insira o damage" formControlName="damage">
-            <mat-error *ngIf="weapons.get(i+'.damage').hasError('required') && weapons.get(i+'.damage').touched">
-              O damage é obrigatório
-            </mat-error>
-            <mat-error *ngIf="(weapons.get(i+'.damage').hasError('min') || weapons.get(i+'.damage').hasError('max')) && weapons.get(i+'.damage').touched">
-              O damage deve ser entre 0 e 999
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="legacy" class="mat-full-width">
-            <mat-label>durability</mat-label>
-            <input type="number" maxlength="4" min="1" max="999" matInput placeholder="Insira o durability" formControlName="durability">
-            <mat-error *ngIf="weapons.get(i+'.durability').hasError('required') && weapons.get(i+'.durability').touched">
-              O durability é obrigatório
-            </mat-error>
-            <mat-error *ngIf="(weapons.get(i+'.durability').hasError('min') || weapons.get(i+'.durability').hasError('max')) && weapons.get(i+'.durability').touched">
-              O durability deve ser entre 0 e 999
-            </mat-error>
-          </mat-form-field>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Moves">
+        <section>
+          <div class="mat-button-row">
+            <div class="mat-flex-container">
+              <button mat-raised-button color="primary" (click)="addMove();">ADD MOVE</button>
+            </div>
+          </div>
+        </section>
+        <div formArrayName="moves" *ngFor="let move of moves.controls; let i = index">
+          <div [formGroupName]="i">
+            <div class="row g-2">
+              <mat-divider></mat-divider>
+
+              <div class="col-md-12">
+                <mat-form-field appearance="legacy" class="mat-full-width">
+                  <mat-label>Name</mat-label>
+                  <input matInput placeholder="Enter the name of move" formControlName="name">
+                  <mat-error *ngIf="moves.get(i+'.name').hasError('required') && moves.get(i+'.name').touched">
+                    Name is required
+                  </mat-error>
+                  <mat-error
+                    *ngIf="moves.get(i+'.name').hasError('maxlength') && moves.get(i+'.name').touched">
+                    Nome can't have more than 100 characters
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6">
+                <mat-form-field appearance="fill">
+                  <mat-label>Select an Type</mat-label>
+                  <mat-select formControlName="type">
+                    <mat-option *ngFor="let type of types" [value]="type">{{typeEnumLabel[type]}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="moves.get(i+'.type').hasError('required') && moves.get(i+'.type').touched">
+                    Type is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field appearance="fill">
+                  <mat-label>Select an Category</mat-label>
+                  <mat-select formControlName="category">
+                    <mat-option *ngFor="let category of categories" [value]="category">{{categoryEnumLabel[category]}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="moves.get(i+'.category').hasError('required') && moves.get(i+'.category').touched">
+                    Category is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-3">
+                <mat-form-field appearance="legacy" class="mat-full-width">
+                  <mat-label>Damage</mat-label>
+                  <input type="number" maxlength="4" min="0" max="999" matInput placeholder="Enter the Damage"
+                    formControlName="damage">
+                  <mat-error *ngIf="moves.get(i+'.damage').hasError('required') && moves.get(i+'.damage').touched">
+                    Damage is required
+                  </mat-error>
+                  <mat-error
+                    *ngIf="(moves.get(i+'.damage').hasError('min') || moves.get(i+'.damage').hasError('max')) && moves.get(i+'.damage').touched">
+                    Damage must be between 0 and 999
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                <mat-form-field appearance="legacy" class="mat-full-width">
+                  <mat-label>Accurace</mat-label>
+                  <input type="number" maxlength="4" min="0" max="999" matInput placeholder="Enter the Accurace"
+                    formControlName="accurace">
+                  <mat-error *ngIf="moves.get(i+'.accurace').hasError('required') && moves.get(i+'.accurace').touched">
+                    Accurace is required
+                  </mat-error>
+                  <mat-error
+                    *ngIf="(moves.get(i+'.accurace').hasError('min') || moves.get(i+'.accurace').hasError('max')) && moves.get(i+'.accurace').touched">
+                    Accurace must be between 0 and 999
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                <mat-form-field appearance="legacy" class="mat-full-width">
+                  <mat-label>Usage</mat-label>
+                  <input type="number" maxlength="4" min="0" max="999" matInput placeholder="Enter the Usage"
+                    formControlName="usage">
+                  <mat-error *ngIf="moves.get(i+'.usage').hasError('required') && moves.get(i+'.usage').touched">
+                    Usage is required
+                  </mat-error>
+                  <mat-error
+                    *ngIf="(moves.get(i+'.usage').hasError('min') || moves.get(i+'.usage').hasError('max')) && moves.get(i+'.usage').touched">
+                    Usage must be between 0 and 999
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                  <div class="mat-button-row">
+                    <div class="mat-flex-container">
+                      <button mat-raised-button color="warn" (click)="removeMove(i);">REMOVE</button>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <!-- <mat-tab label="Weapons">
+        <section>
+          <div class="mat-button-row">
+            <div class="mat-flex-container">
+              <button mat-raised-button color="primary" (click)="addWeapon();">ADD WEAPON</button>
+            </div>
+          </div>
+        </section>
+        <div formArrayName="weapons" *ngFor="let weapon of weapons.controls; let i = index">
+          <div [formGroupName]="i">
+            <div class="row g-2">
+              <mat-divider></mat-divider>
+              <div class="col-md-12">
+                <mat-form-field appearance="legacy" class="mat-full-width">
+                  <mat-label>Type</mat-label>
+                  <input matInput placeholder="Enter the Type" formControlName="type">
+                  <mat-error *ngIf="weapons.get(i+'.type').hasError('required') && weapons.get(i+'.type').touched">
+                    O Type is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field appearance="legacy" class="mat-full-width">
+                  <mat-label>Damage</mat-label>
+                  <input type="number" maxlength="4" min="0" max="999" matInput placeholder="Enter the Damage"
+                    formControlName="damage">
+                  <mat-error *ngIf="weapons.get(i+'.damage').hasError('required') && weapons.get(i+'.damage').touched">
+                    Damage is required
+                  </mat-error>
+                  <mat-error
+                    *ngIf="(weapons.get(i+'.damage').hasError('min') || weapons.get(i+'.damage').hasError('max')) && weapons.get(i+'.damage').touched">
+                    Damage must be between 0 and 999
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field appearance="legacy" class="mat-full-width">
+                  <mat-label>Durability</mat-label>
+                  <input type="number" maxlength="4" min="0" max="999" matInput placeholder="Enter the Durability"
+                    formControlName="durability">
+                  <mat-error
+                    *ngIf="weapons.get(i+'.durability').hasError('required') && weapons.get(i+'.durability').touched">
+                    Durability is required
+                  </mat-error>
+                  <mat-error
+                    *ngIf="(weapons.get(i+'.durability').hasError('min') || weapons.get(i+'.durability').hasError('max')) && weapons.get(i+'.durability').touched">
+                    Durability must be between 0 and 999
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab> -->
+    </mat-tab-group>
+    <mat-divider></mat-divider>
+    <section>
+      <div class="mat-button-row">
+        <div class="mat-flex-container">
+          <button mat-raised-button color="warn" [routerLink]="['/characters']">BACK</button>
+          <button mat-raised-button color="primary" [disabled]="!registerForm.valid"
+            (click)="saveCharacter();">SAVE</button>
         </div>
       </div>
-    </mat-tab>
-    <mat-tab label="Move">
-      <div formArrayName="moves" *ngFor="let move of moves.controls; let i = index">
-        <div [formGroupName]="i">
-          <mat-form-field appearance="legacy" class="mat-full-width">
-            <mat-label>Type</mat-label>
-            <input matInput placeholder="Insira o codigo da type" formControlName="type">
-            <mat-error *ngIf="moves.get(i+'.type').hasError('required') && moves.get(i+'.type').touched">
-              O Type é obrigatório
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="legacy" class="mat-full-width">
-            <mat-label>damage</mat-label>
-            <input type="number" maxlength="4" min="1" max="999" matInput placeholder="Insira o damage" formControlName="damage">
-            <mat-error *ngIf="moves.get(i+'.damage').hasError('required') && moves.get(i+'.damage').touched">
-              O damage é obrigatório
-            </mat-error>
-            <mat-error *ngIf="(moves.get(i+'.damage').hasError('min') || moves.get(i+'.damage').hasError('max')) && moves.get(i+'.damage').touched">
-              O damage deve ser entre 0 e 999
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="legacy" class="mat-full-width">
-            <mat-label>usage</mat-label>
-            <input type="number" maxlength="4" min="1" max="999" matInput placeholder="Insira o usage" formControlName="usage">
-            <mat-error *ngIf="moves.get(i+'.usage').hasError('required') && moves.get(i+'.usage').touched">
-              O usage é obrigatório
-            </mat-error>
-            <mat-error *ngIf="(moves.get(i+'.usage').hasError('min') || moves.get(i+'.usage').hasError('max')) && moves.get(i+'.usage').touched">
-              O usage deve ser entre 0 e 999
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-    </mat-tab>
-  </mat-tab-group>
-  <mat-divider></mat-divider>
-  <section>
-    <div class="mat-button-row">
-      <div class="mat-flex-container">
-        <button mat-raised-button color="warn" [routerLink]="['/characters']">VOLTAR</button>
-        <button mat-raised-button color="primary" [disabled]="!registerForm.valid" (click)="saveCharacter();">SALVAR</button>
-      </div>
-    </div>
-  </section>
-  <mat-divider></mat-divider>
-  <!-- <h2>{{registerForm.status | json}}</h2>
-  <h2>{{registerForm.value | json}}</h2> -->
+    </section>
+    <mat-divider></mat-divider>
+    <!-- <h2>{{registerForm.status | json}}</h2>
+    <h2>{{registerForm.value | json}}</h2> -->
+  </div>
 </form>

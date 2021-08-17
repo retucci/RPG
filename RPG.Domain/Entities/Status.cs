@@ -6,7 +6,11 @@ namespace RPG.Domain.Entities
 
         public int ExperiencePoints { get; set; }
 
+        public int TotalExperiencePoints { get; set; }
+
         public int HitPoints { get; set; }
+
+        public int TotalHitPoints { get; set; }
 
         public int Attack { get; set; }
 
