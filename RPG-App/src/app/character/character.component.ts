@@ -22,6 +22,8 @@ export interface DialogData {
 
 export class CharacterComponent implements OnInit, AfterViewInit {
 
+  title = "List of Characters"
+
   characters: Character[];
 
   length = 0;

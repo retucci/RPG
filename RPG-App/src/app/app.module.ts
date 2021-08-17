@@ -12,6 +12,7 @@ import { MaterialModule } from './app.material.module';
 import { ToastrModule } from 'ngx-toastr';
 
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { TitleComponent } from './_shared/title/title.component'
 import { CharacterComponent, CharacterDialogComponent } from './character/character.component';
 import { CharacterEditComponent } from './character/characterEdit/characterEdit.component';
 
@@ -20,6 +21,7 @@ import { CharacterEditComponent } from './character/characterEdit/characterEdit.
   declarations: [	
     AppComponent,
     ToolbarComponent,
+    TitleComponent,
     CharacterComponent, CharacterDialogComponent,
     CharacterEditComponent
    ],

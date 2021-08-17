@@ -18,6 +18,8 @@ import { CategoryEnum, CategoryEnumLabel } from 'src/app/_enums/CategoryEnum.enu
 })
 export class CharacterEditComponent implements OnInit {
 
+  title = "Character"
+
   registerForm: FormGroup;
   character: Character;
 
